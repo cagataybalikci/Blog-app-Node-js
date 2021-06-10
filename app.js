@@ -1,7 +1,7 @@
 const express = require("express")
 const ejs = require("ejs")
 const bodyParser = require("body-parser")
-var _ = require("lodash")
+const _ = require("lodash")
 
 let posts = [];
 
@@ -54,15 +54,20 @@ app.post("/compose", (req, res) => {
   res.redirect("/")
 })
 
-app.get("/posts/:postName",(req,res)=>{
-  const requestedTitle = req.params.postName.toLowerCase()
-  posts.forEach((post)=>{
-    if (requestedTitle === post.title.toLowerCase()) {
-      console.log("Match Found");
-    }
-  })
-})
+app.get("/posts/:postName", (req, res) => {
+      const requestedTitlePath = _.lowerCase(req.params.postName)
+
+    posts.forEach((post) => {
+        const storedTitle = _.lowerCase(post.title);
+        if (requestedTitlePath === storedTitle) {
+              res.render("post", {
+                requestedTitle: post.title ,
+                requestedBody: post.post
+              });
+        };
+    });
+});
 
 app.listen(3000, () => {
-  console.log("Started at port 3000.");
-})
+      console.log("Started at port 3000.");
+});

@@ -4,7 +4,7 @@
   <h2>
     <%= post.title %>
   </h2>
-  <p><%= post.post %></p>
+  <p><%= post.post.substring(0,100) + " ..." %> <span><a href="/posts/:<%= post.title %>">Read More</a></span></p>
 <% }) %>
 
 
