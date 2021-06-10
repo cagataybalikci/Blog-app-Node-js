@@ -19,6 +19,24 @@ app.get("/",(req,res)=>{
 })
 
 
+app.get("/about",(req,res)=>{
+  res.render("about",{ aboutText : aboutContent})
+})
+
+app.get("/contact",(req,res)=>{
+  res.render("contact",{contactText :contactContent})
+})
+
+app.get("/compose", (req,res)=>{
+
+  res.render("compose")
+})
+
+app.post("/compose",(req,res)=>{
+    let title = req.body.postTitle
+    console.log(title);
+})
+
 app.listen(3000,()=>{
   console.log("Started at port 3000.");
 })
