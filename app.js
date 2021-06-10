@@ -1,6 +1,7 @@
 const express = require("express")
 const ejs = require("ejs")
 const bodyParser = require("body-parser")
+var _ = require("lodash")
 
 let posts = [];
 
@@ -16,6 +17,9 @@ app.set("view engine", "ejs")
 app.use(bodyParser.urlencoded({
   extended: true
 }))
+
+
+
 
 app.get("/", (req, res) => {
   res.render("home", {
@@ -48,6 +52,15 @@ app.post("/compose", (req, res) => {
   }
   posts.push(post)
   res.redirect("/")
+})
+
+app.get("/posts/:postName",(req,res)=>{
+  const requestedTitle = req.params.postName.toLowerCase()
+  posts.forEach((post)=>{
+    if (requestedTitle === post.title.toLowerCase()) {
+      console.log("Match Found");
+    }
+  })
 })
 
 app.listen(3000, () => {
